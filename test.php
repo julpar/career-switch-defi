@@ -1,6 +1,6 @@
 <?php
 
-function check($blocks = []) {
+function check($blocks = [], $token = '') {
     /**
      * Escribe aqui tu solucion leyendo el argumento que recibe
      * Y retorna el resultado correctamente ordenado
