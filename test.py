@@ -1,6 +1,6 @@
 import sys
 
-def check(blocks, token) -> bool:
+def check(blocks, token):
     result = ["f319", "46ec", "c1c7", "3720", "c7df", "c4ea", "4e3e", "80fd"]
     
     # Aqui debes escribir el codigo de la solucion
