@@ -52,7 +52,7 @@ func main() {
 		"7": "c4ea",
 	}
 
-	result := check(expected)
+	result := check(expected, "b93ac073-eae4-405d-b4ef-bb82e0036a1d")
 
 	if reflect.DeepEqual(result, expected) {
 		fmt.Println("Lo resolviste correctamente")

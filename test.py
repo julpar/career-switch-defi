@@ -14,9 +14,9 @@ def main():
     expected = ["f319", "46ec", "c1c7", "3720", "c7df", "c4ea", "4e3e", "80fd"];
 
     if result == expected:
-        print("`Lo resolviste correctamente!")
+        print("Lo resolviste correctamente!")
     else:
-        print("`Todavía puedes intentarlo!")
+        print("Todavía puedes intentarlo!")
 
 
 main()
