@@ -13,7 +13,7 @@ let result = check(["f319", "3720", "4e3e", "46ec", "c7df", "c1c7", "80fd", "c4e
 // Esperamos que el resultado sea como este array
 let expected = ["f319", "46ec", "c1c7", "3720", "c7df", "c4ea", "4e3e", "80fd"];
 
-if (result.join('') == expected.join('') {
+if (result.join('') == expected.join('')) {
     console.log("Lo resolviste correctamente!");
 } else {
     console.log("Todavia puedes intentarlo!");
