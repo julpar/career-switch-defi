@@ -4,6 +4,10 @@ using System.Linq;
 
 public class Solution {
     private static string[] Check(string[] block, string token) {
+        /**
+         * Escribe aquí tu solución leyendo los argumentos que recibe,
+         * y retorna el resultado correctamente ordenado.
+         */
         return new string[]{"abc", "def", "ghi"};
     }
 
@@ -13,11 +17,11 @@ public class Solution {
         // Esperamos que el resultado sea como este array
         string[] expected = {"f319", "46ec", "c1c7", "3720", "c7df", "c4ea", "4e3e", "80fd"};
 
-        
+
         if (Enumerable.SequenceEqual(result, expected)) {
             Console.WriteLine("Lo resolviste correctamente!");
         } else {
-            Console.WriteLine("El test falló. ¡Todavia puedes intentarlo!");
+            Console.WriteLine("El test falló. ¡Todavía puedes intentarlo!");
         }
     }
 }

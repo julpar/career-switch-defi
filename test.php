@@ -2,9 +2,9 @@
 
 function check($blocks = [], $token = '') {
     /**
-     * Escribe aqui tu solucion leyendo el argumento que recibe
+     * Escribe aquí tu solución leyendo el argumento que recibe
      * Y retorna el resultado correctamente ordenado
-     * Segun el ejemplo provisto, seria...
+     * Según el ejemplo provisto, seria...
      */
     return ["f319", "46ec", "c1c7", "3720", "c7df", "c4ea", "4e3e", "80fd"];
 }
@@ -18,5 +18,5 @@ $expected = ["f319", "46ec", "c1c7", "3720", "c7df", "c4ea", "4e3e", "80fd"];
 if ($result == $expected) {
     echo "Lo resolviste correctamente!";
 } else {
-    echo "Todavia puedes intentarlo!";
+    echo "Todavía puedes intentarlo!";
 }

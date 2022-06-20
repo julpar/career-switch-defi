@@ -1,5 +1,6 @@
 class Solution {
     private static check(block: Array<string>, token: string): Array<string> {
+        // Aquí debes escribir el código de la solución
         return ["f319", "46ec", "c1c7", "3720", "c7df", "c4ea", "4e3e", "80fd"];
     }
 
@@ -12,7 +13,7 @@ class Solution {
         if (result.join('') == expected.join('')) {
             console.log("Lo resolviste correctamente!");
         } else {
-            console.log("El test falló. ¡Todavia puedes intentarlo!");
+            console.log("El test falló. ¡Todavía puedes intentarlo!");
         }
     }
 }

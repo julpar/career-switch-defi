@@ -7,9 +7,9 @@ import (
 
 func check(blocks map[string]string, token string) map[string]string {
 	/**
-	 * Escribe aqui tu solucion leyendo el argumento que recibe
+	 * Escribe aquí tu solución leyendo el argumento que recibe
 	 * Y retorna el resultado correctamente ordenado
-	 * Segun el ejemplo provisto, seria...
+	 * Según el ejemplo provisto, seria...
 	 */
 	return map[string]string{
 		"0": "f319",
@@ -37,7 +37,7 @@ func main() {
 		"6": "4e3e",
 		"7": "80fd",
 	}
-	
+
 	/**
 	 * Secuencia de bloques desordenados
 	 */
@@ -57,6 +57,6 @@ func main() {
 	if reflect.DeepEqual(result, expected) {
 		fmt.Println("Lo resolviste correctamente")
 	} else {
-		fmt.Println("Todavia puedes intentarlo")
+		fmt.Println("Todavía puedes intentarlo")
 	}
 }

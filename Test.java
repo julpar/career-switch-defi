@@ -3,7 +3,7 @@ import java.util.Arrays;
 public class Test {
     private static String[] check(String[] blocks, String token) {
         /**
-         * Escribe aqui tu solucion leyendo los argumentos que recibe,
+         * Escribe aquí tu solución leyendo los argumentos que recibe,
          * y retorna el resultado correctamente ordenado.
          */
         return new String[]{"abc", "def", "ghi"};
@@ -19,7 +19,7 @@ public class Test {
         if (Arrays.equals(result, expected)) {
             System.out.println("Lo resolviste correctamente!");
         } else {
-            System.out.println("El test falló. ¡Todavia puedes intentarlo!");
+            System.out.println("El test falló. ¡Todavía puedes intentarlo!");
         }
 
     }

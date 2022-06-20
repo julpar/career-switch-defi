@@ -1,8 +1,7 @@
 def check(blocks, token)
+    # Aquí debes escribir el código de la solución
     result = []
-    
-    # Aqui debes escribir el codigo de la solucion
-    
+
     return ["f319", "46ec", "c1c7", "3720", "c7df", "c4ea", "4e3e", "80fd"];
 end
 
@@ -14,5 +13,5 @@ expected = ["f319", "46ec", "c1c7", "3720", "c7df", "c4ea", "4e3e", "80fd"]
 if (result == expected)
     puts "Lo resolviste correctamente!";
 else
-    puts "El test falló. ¡Todavia puedes intentarlo!";
+    puts "El test falló. ¡Todavía puedes intentarlo!";
 end
