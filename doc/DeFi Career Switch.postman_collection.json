@@ -1,0 +1,76 @@
+{
+	"info": {
+		"_postman_id": "0dbb486b-16c6-4ad5-a8f4-bd17c3de295b",
+		"name": "DeFi Career Switch",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20391832"
+	},
+	"item": [
+		{
+			"name": "Get Token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_base_url}}/token?email={{email}}",
+					"host": [
+						"{{api_base_url}}"
+					],
+					"path": [
+						"token"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "{{email}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Blocks",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Check",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"blocks\": [\n       \"qwer\",\n       \"jhgf\"\n   ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api_base_url}}/check?token={{token}}",
+					"host": [
+						"{{api_base_url}}"
+					],
+					"path": [
+						"check"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
