@@ -13,6 +13,7 @@ class MemberAccessor
     {
         $property = static::getPropertyOf($subject, $propertyName);
 
+        /** @psalm-suppress PossiblyInvalidArgument */
         return $property->isStatic() ?
             $property->getValue() :
             $property->getValue($subject);
@@ -26,10 +27,11 @@ class MemberAccessor
         if (is_string($subject) && class_exists($subject)) {
             $class = new ReflectionClass($subject);
         } else {
+            /** @psalm-suppress PossiblyInvalidArgument */
             $class = new ReflectionClass(get_class($subject));
         }
 
-        $property = $class->getProperty((string) $propertyName);
+        $property = $class->getProperty($propertyName);
         $property->setAccessible(true);
 
         return $property;

@@ -19,7 +19,8 @@ class BlockSequentialSorterTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-       
+
+        /** @psalm-suppress InvalidArgument */
         $this->sut = new BlockSequentialSorter(m::mock(RooftopBlocksAPIInterface::class));
     }
     
