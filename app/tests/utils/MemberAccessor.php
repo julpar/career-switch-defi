@@ -18,6 +18,20 @@ class MemberAccessor
             $property->getValue() :
             $property->getValue($subject);
     }
+
+    /**
+     * Set property to a subject class or object
+     */
+    public static function set(string|object  $subject, string $propertyName, $value)
+    {
+        $property = static::getPropertyOf($subject, $propertyName);
+
+        if ($property->isStatic()) {
+            $property->setValue($value);
+        } else {
+            $property->setValue($subject, $value);
+        }
+    }
     
     /**
      * Get reflection property of a subject
