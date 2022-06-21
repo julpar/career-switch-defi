@@ -2,3 +2,4 @@
 /.php-cs-fixer.cache
 /.phpunit.cache/
 /app/config/.env
+/.idea/
