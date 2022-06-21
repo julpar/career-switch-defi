@@ -11,6 +11,7 @@
         <directory name="app" />
         <ignoreFiles>
             <directory name="vendor" />
+            <directory name="app/tests" />
         </ignoreFiles>
     </projectFiles>
 </psalm>
