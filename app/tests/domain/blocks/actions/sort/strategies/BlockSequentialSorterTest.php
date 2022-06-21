@@ -124,6 +124,21 @@ class BlockSequentialSorterTest extends TestCase
 
         $this->assertEquals(["1", "2"], $result->toStringArray());
     }
+
+    public function testUneven(): void
+    {
+        $blockListMock = ["1", "3", "2"] ;
+        $expectedApiCalls = 3;
+
+        $this->setExpectations(
+            MemberAccessor::get($this->sut, 'client'),
+            $expectedApiCalls
+        );
+
+        $result = $this->sut->sort(BlockList::createFromHashesList($blockListMock));
+
+        $this->assertEquals(["1", "2", "3"], $result->toStringArray());
+    }
     
     private function setExpectations($apiClientMock, int $expectedApiCalls): void
     {
