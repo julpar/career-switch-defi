@@ -14,27 +14,33 @@ Runtime requirements are specified at `composer.json` but briefly you'll need :
 
 In order to bootstrap the application some required runtime parameters are needed. As an example, an environment file is located `app/config/.env.example`. You should make a copu and tweak it accordingly:
 
->  cp -p app/config/.env.example app/config/.env
-
+```bash
+cp -p app/config/.env.example app/config/.env
+```
 ## Run steps
  
 After defining environment variables you'll need to populate project dependencies using composer
-
-> $ composer install
-
+```bash
+$ composer install
+```
 Then to run provided example:
 
-> $ php test.php
+```bash
+$ php test.php
+```
 
-## Unit Tests
+## Unit Testing
 
 Unit tests can be run using phpunit:
 
-> $ vendor/bin/phpunit 
+```bash
+$ vendor/bin/phpunit 
+```
 
-
-## Statics checks
+## Statics analysis checks
 
 Static code checks are enforced using `psalm`
 
-> $ vendor/bin/psalm 
+```bash
+$ vendor/bin/psalm 
+```
