@@ -16,17 +16,7 @@ use Mockery as m;
 class BlockListTest extends TestCase
 {
     private BlockList $sut;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-    }
-
-    public function tearDown(): void
-    {
-        parent::tearDown();
-    }
-
+    
     public function testInvalidBlockTypeInt(): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -38,8 +28,7 @@ class BlockListTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         new BlockList(["1", "2", "3"]);
     }
-
-
+    
     public function testValidInstance(): void
     {
         $values = [
@@ -49,8 +38,7 @@ class BlockListTest extends TestCase
 
         $this->assertInstanceOf(BlockList::class, new BlockList($values));
     }
-
-
+    
     public function testValidInterfaceImplementation(): void
     {
         $values = [
@@ -60,6 +48,16 @@ class BlockListTest extends TestCase
         
         $this->assertInstanceOf(BlockListInterface::class, new BlockList($values));
     }
+    
+    public function testCreateFromHashes(): void
+    {
+        $values = ["1", "2", "3"];
+
+        $blockList = BlockList::createFromHashesList($values);
+        
+        $this->assertEquals($blockList->toStringArray(), $values);
+    }
+    
     
 }
 
