@@ -12,6 +12,9 @@ use \app\domain\blocks\actions\sort\strategies\BlockSequentialSorter;
 use Mockery as m;
 use app\tests\utils\MemberAccessor;
 
+/**
+ * @covers BlockSequentialSorter::sort
+ */
 class BlockSequentialSorterTest extends TestCase
 {
     private BlockSequentialSorter $sut;
@@ -30,9 +33,6 @@ class BlockSequentialSorterTest extends TestCase
         m::close();
     }
 
-    /**
-     * @covers BlockSequentialSorter::sort
-     */
     public function testOrdered(): void
     {
         $blockListMock = [ "1", "2", "3", "4"];
@@ -49,9 +49,7 @@ class BlockSequentialSorterTest extends TestCase
 
         $this->assertEquals($blockListMock, $result->toStringArray());
     }
-    /**
-     * @covers BlockSequentialSorter::sort
-     */
+
     public function testWorstOrdered(): void
     {
         $blockListMock = [ "1", "4", "3", "2"];
@@ -66,7 +64,67 @@ class BlockSequentialSorterTest extends TestCase
 
         $this->assertEquals([ "1", "2", "3", "4"], $result->toStringArray());
     }
+    
+    public function testRandomOrdered(): void
+    {
+        $blockListMock = [ "1", "7", "6", "3", "4", "2", "5"];
+        $expectedApiCalls = 17;
 
+        $this->setExpectations(
+            MemberAccessor::get($this->sut, 'client'),
+            $expectedApiCalls
+        );
+
+        $result = $this->sut->sort(BlockList::createFromHashesList($blockListMock));
+
+        $this->assertEquals([ "1", "2", "3", "4", "5", "6", "7"], $result->toStringArray());
+    }
+    
+    public function testEmpty(): void
+    {
+        $blockListMock = [] ;
+        $expectedApiCalls = 0;
+
+        $this->setExpectations(
+            MemberAccessor::get($this->sut, 'client'),
+            $expectedApiCalls
+        );
+
+        $result = $this->sut->sort(BlockList::createFromHashesList($blockListMock));
+
+        $this->assertEquals([], $result->toStringArray());
+    }
+
+    public function testJustOne(): void
+    {
+        $blockListMock = ["1"] ;
+        $expectedApiCalls = 0;
+
+        $this->setExpectations(
+            MemberAccessor::get($this->sut, 'client'),
+            $expectedApiCalls
+        );
+
+        $result = $this->sut->sort(BlockList::createFromHashesList($blockListMock));
+
+        $this->assertEquals(["1"], $result->toStringArray());
+    }
+
+    public function testPair(): void
+    {
+        $blockListMock = ["1", "2"] ;
+        $expectedApiCalls = 1;
+
+        $this->setExpectations(
+            MemberAccessor::get($this->sut, 'client'),
+            $expectedApiCalls
+        );
+
+        $result = $this->sut->sort(BlockList::createFromHashesList($blockListMock));
+
+        $this->assertEquals(["1", "2"], $result->toStringArray());
+    }
+    
     private function setExpectations($apiClientMock, int $expectedApiCalls): void
     {
         $apiClientMock->shouldReceive('isNext')
