@@ -3,34 +3,41 @@ declare(strict_types=1);
 
 namespace app\domain\blocks;
 
-use app\domain\blocks\actions\BlockCheckOrderedInterface;
-use app\domain\blocks\actions\BlockRetrievalInterface;
-use app\domain\blocks\actions\BlockSorterInterface;
-use app\domain\blocks\entities\BlockListInterface;
+use app\domain\blocks\actions\sort\strategies\BlockSequentialSorter;
+use app\domain\blocks\entities\BlockList;
+use app\infrastructure\api\RooftopBlocksAPIClientInterface;
 use app\infrastructure\api\RooftopBlocksAPIInterface;
+use app\infrastructure\api\RooftopBlocksAPIManager;
+use Assert\Assert;
 
-class BlocksManager implements BlockSorterInterface, BlockRetrievalInterface, BlockCheckOrderedInterface
+class BlocksManager
 {
-    private BlockListInterface $blockList;
+    private RooftopBlocksAPIInterface $apiGateway;
     
-    public function __construct(private RooftopBlocksAPIInterface $api)
-    {
-        $this->blockList = $this->api->fetchBlocks();
+    public function __construct(
+        private RooftopBlocksAPIClientInterface $apiClient,
+    ) {
     }
 
-    public function sort(BlockListInterface $blocks): BlockListInterface
+    public function sort(array $blocks): array
     {
-        //TODO: Sort
-        return $blocks;
+        Assert::that($this->apiGateway)->notNull('Access Token must be set');
+        $sorter = new BlockSequentialSorter($this->apiGateway);
+        
+        $sorted = $sorter->sort(BlockList::createFromHashesList($blocks));
+        
+        return $sorted->toStringArray();
     }
 
-    public function getBlocks(): BlockListInterface
+    public function check(array $blocks): bool
     {
-        return $this->blockList;
+        Assert::that($this->apiGateway)->notNull('Access Token must be set');
+        
+        return $this->apiGateway->check(BlockList::createFromHashesList($blocks));
     }
-
-    public function check(BlockListInterface $blocks): bool
+    
+    public function setAccessToken(string $apiAccessToken): void
     {
-        return $this->api->check($blocks);
+        $this->apiGateway = new RooftopBlocksAPIManager($apiAccessToken, $this->apiClient);
     }
 }

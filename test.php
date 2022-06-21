@@ -1,18 +1,29 @@
 <?php
+declare(strict_types=1);
+
 use app\di\Container;
 use app\domain\blocks\BlocksManager;
+use app\infrastructure\api\RooftopBlocksAPIClientInterface;
 
 require __DIR__ . '/app/config/bootstrap.php';
 
-$container = Container::getInstance();
+function check($blocks = [], $token = '')
+{
+    /** @var BlocksManager $app */
+    $app = Container::getInstance()->get(BlocksManager::class);
+    
+    $app->setAccessToken($token);
+    $sorted =  $app->sort($blocks);
+    
+    return $app->check($sorted);
+}
 
-/** @var BlocksManager $app */
-$app = $container->get(BlocksManager::class);
 
-$blocks = $app->getBlocks();
-$sortedBlocks = $app->sort($blocks);
+/** @var  RooftopBlocksAPIClientInterface  $client */
+$client = Container::getInstance()->get(RooftopBlocksAPIClientInterface::class);
+$accessToken = $client->fetchAccessToken(Container::getInstance()->get('api.auth.email'));
 
-if ($app->check($sortedBlocks)) {
+if (check($client->getBlocks($accessToken), $accessToken)) {
     echo "Lo resolviste correctamente!";
 } else {
     echo "Todavía puedes intentarlo!";

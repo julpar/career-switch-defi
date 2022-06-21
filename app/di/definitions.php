@@ -1,16 +1,13 @@
 <?php
 declare(strict_types=1);
 
+use app\infrastructure\api\RooftopBlocksAPIClient;
 use app\infrastructure\api\RooftopBlocksAPIClientInterface;
-use app\infrastructure\api\RooftopBlocksAPIInterface;
-use app\infrastructure\api\RooftopBlocksAPIManager;
-use app\tests\mocks\RooftopBlocksAPIClientMock;
-use GuzzleHttp\Psr7\HttpFactory;
-use Psr\Http\Message\RequestFactoryInterface;
+use GuzzleHttp\Client;
 
 return [
-    RooftopBlocksAPIInterface::class => DI\autowire(RooftopBlocksAPIManager::class),
-    RequestFactoryInterface::class => DI\autowire(HttpFactory::class),
-    RooftopBlocksAPIClientInterface::class => DI\autowire(RooftopBlocksAPIClientMock::class),
-    'api.auth.email' => DI\env('API_AUTH_EMAIL')
+    Psr\Http\Client\ClientInterface::class => DI\autowire(Client::class)
+        ->constructorParameter('config', ['base_uri' =>  DI\env('API_ENDPOINT_BASE_URL')]),
+    RooftopBlocksAPIClientInterface::class => DI\autowire(RooftopBlocksAPIClient::class),
+    'api.auth.email' => DI\env('API_AUTH_EMAIL'),
 ];

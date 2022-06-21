@@ -3,9 +3,11 @@ namespace app\domain\blocks\entities;
 
 interface BlockListInterface
 {
-    public function current(): BlockInterface;
-    public function next(): BlockInterface;
-    public function previous(): BlockInterface;
+    public function getFirst(): ?BlockInterface;
+    public function getIterator(): BlockIteratorInterface;
+    public function getRemaining(): BlockListInterface;
     public function toArray(): array;
-    public function reset(): void;
+    public function toStringArray(): array;
+    public function isEmpty(): bool;
+    public function count(): int;
 }
