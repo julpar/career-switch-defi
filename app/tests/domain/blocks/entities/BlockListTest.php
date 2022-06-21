@@ -16,7 +16,6 @@ use Mockery as m;
  */
 class BlockListTest extends TestCase
 {
-    private BlockList $sut;
     
     public function testInvalidBlockTypeInt(): void
     {
