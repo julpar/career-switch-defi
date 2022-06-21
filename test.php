@@ -18,7 +18,6 @@ function check($blocks = [], $token = '')
     return $app->check($sorted);
 }
 
-
 /** @var  RooftopBlocksAPIClientInterface  $client */
 $client = Container::getInstance()->get(RooftopBlocksAPIClientInterface::class);
 $accessToken = $client->fetchAccessToken(Container::getInstance()->get('api.auth.email'));
