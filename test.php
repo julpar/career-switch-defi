@@ -1,22 +1,21 @@
 <?php
+use app\di\Container;
+use app\domain\blocks\BlocksManager;
 
-function check($blocks = [], $token = '') {
-    /**
-     * Escribe aquí tu solución leyendo el argumento que recibe
-     * Y retorna el resultado correctamente ordenado
-     * Según el ejemplo provisto, seria...
-     */
-    return ["f319", "46ec", "c1c7", "3720", "c7df", "c4ea", "4e3e", "80fd"];
-}
+require __DIR__ . '/app/config/bootstrap.php';
 
-// Enviamos datos desordenados para testear el resultado
-$result = check(["f319", "3720", "4e3e", "46ec", "c7df", "c1c7", "80fd", "c4ea"], "b93ac073-eae4-405d-b4ef-bb82e0036a1d");
+$container = Container::getInstance();
 
-// Esperamos que el resultado sea como este array
-$expected = ["f319", "46ec", "c1c7", "3720", "c7df", "c4ea", "4e3e", "80fd"];
+/** @var BlocksManager $app */
+$app = $container->get(BlocksManager::class);
 
-if ($result == $expected) {
+$blocks = $app->getBlocks();
+$sortedBlocks = $app->sort($blocks);
+
+if ($app->check($sortedBlocks)) {
     echo "Lo resolviste correctamente!";
 } else {
     echo "Todavía puedes intentarlo!";
 }
+
+echo "\n";
