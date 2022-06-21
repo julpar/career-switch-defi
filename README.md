@@ -23,7 +23,7 @@ After defining environment variables you'll need to populate project dependencie
 ```bash
 $ composer install
 ```
-Then to run provided example:
+Then, to run provided example you should execute:
 
 ```bash
 $ php test.php
@@ -31,7 +31,7 @@ $ php test.php
 
 ## Unit Testing
 
-Unit tests can be run using phpunit:
+Although tests continuously run on every repo change as part of designed CI pipeline, Unit tests can be run manually using `phpunit`:
 
 ```bash
 $ vendor/bin/phpunit 
@@ -39,7 +39,7 @@ $ vendor/bin/phpunit
 
 ## Statics analysis checks
 
-Static code checks are enforced using `psalm`
+Static code checks are enforced using `psalm` on every code change at repo level. Manual run can be also run by executing:
 
 ```bash
 $ vendor/bin/psalm 
