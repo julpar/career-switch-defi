@@ -7,22 +7,32 @@ use app\infrastructure\api\RooftopBlocksAPIClientInterface;
 
 require __DIR__ . '/app/config/bootstrap.php';
 
-function check($blocks = [], $token = '')
+/**
+ * Order block array based on proposed api endpoints
+ * @param string[] $blocks
+ * @param string $token
+ * @return string[] ordered blocks
+ */
+function check($blocks = [], $token = ''): array
 {
     /** @var BlocksManager $app */
     $app = Container::getInstance()->get(BlocksManager::class);
     
     $app->setAccessToken($token);
-    $sorted =  $app->sort($blocks);
     
-    return $app->check($sorted);
+    return $app->sort($blocks);
 }
 
 /** @var  RooftopBlocksAPIClientInterface  $client */
 $client = Container::getInstance()->get(RooftopBlocksAPIClientInterface::class);
+/** @var BlocksManager $app */
+$app = Container::getInstance()->get(BlocksManager::class);
+
 $accessToken = $client->fetchAccessToken(Container::getInstance()->get('api.auth.email'));
 
-if (check($client->getBlocks($accessToken), $accessToken)) {
+$sorted = check($client->getBlocks($accessToken), $accessToken);
+    
+if ($app->check($sorted)) {
     echo "Lo resolviste correctamente!";
 } else {
     echo "Todavía puedes intentarlo!";
