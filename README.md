@@ -8,7 +8,7 @@ The proposed solution was coded using modern PHP and best practices such as OOP 
 In order to bootstrap the application some required runtime parameters are needed. As an example, an environment file is located `app/config/.env.example`. You should make a copu and tweak it accordingly:
 
 ```bash
-cp -p app/config/.env.example app/config/.env
+$ cp -p app/config/.env.example app/config/.env
 ```
 
 ## 🤖 Runtime requirements
@@ -50,7 +50,7 @@ Run provided example as follows:
 $ php test.php
 ```
 
-That was fun, isn't it?
+That was fun, wasn't it?
 
 ## 🐞 Debugging
 
