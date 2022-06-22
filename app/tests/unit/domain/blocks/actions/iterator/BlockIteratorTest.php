@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace app\tests\domain\blocks\actions\iterator;
+namespace app\tests\unit\domain\blocks\actions\iterator;
 
+use app\domain\blocks\actions\sort\iterator\BlockIterator;
 use app\domain\blocks\entities\BlockList;
 use PHPUnit\Framework\TestCase;
-use app\domain\blocks\actions\sort\iterator\BlockIterator;
 
 /**
  * @covers BlockIterator

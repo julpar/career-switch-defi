@@ -1,17 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace app\tests\domain\blocks;
+namespace app\tests\unit\domain\blocks;
 
 use app\domain\blocks\actions\BlockSorterInterface;
 use app\domain\blocks\BlocksManager;
 use app\domain\blocks\entities\BlockList;
 use app\domain\blocks\entities\BlockListInterface;
 use app\infrastructure\api\RooftopBlocksAPIClientInterface;
-
 use app\tests\utils\MemberAccessor;
-use PHPUnit\Framework\TestCase;
 use Mockery as m;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers BlockList
@@ -37,18 +36,18 @@ class BlocksManagerTest extends TestCase
 
     public function testSort(): void
     {
-        $blockListMock = [ "1", "3", "4", "2"];
-        $orderedListMock = [ "1", "2", "3", "4"];
+        $blockListMock = ["1", "3", "4", "2"];
+        $orderedListMock = ["1", "2", "3", "4"];
         $apiTokenMock = 'token';
-        
+
         $this->sut->setAccessToken($apiTokenMock);
-        
+
         $listMock = m::mock(BlockListInterface::class)
             ->shouldReceive('toStringArray')
             ->andReturn($orderedListMock)
             ->once()
             ->getMock();
-        
+
         $sorterMock = m::mock(BlockSorterInterface::class)
             ->shouldReceive('sort')
             ->withArgs(function (BlockListInterface $block) use ($blockListMock) {
@@ -59,7 +58,7 @@ class BlocksManagerTest extends TestCase
             ->getMock();
 
         MemberAccessor::set($this->sut, 'sorter', $sorterMock);
-        
+
         $this->assertEquals($orderedListMock, $this->sut->sort($blockListMock));
     }
 }

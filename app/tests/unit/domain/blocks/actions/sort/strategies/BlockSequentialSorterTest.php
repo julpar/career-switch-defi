@@ -1,16 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace app\tests\domain\blocks\actions\sort\strategies;
+namespace app\tests\unit\domain\blocks\actions\sort\strategies;
 
+use app\domain\blocks\actions\sort\strategies\BlockSequentialSorter;
 use app\domain\blocks\entities\BlockInterface;
 use app\domain\blocks\entities\BlockList;
 use app\infrastructure\api\RooftopBlocksAPIInterface;
-use PHPUnit\Framework\TestCase;
-
-use \app\domain\blocks\actions\sort\strategies\BlockSequentialSorter;
-use Mockery as m;
 use app\tests\utils\MemberAccessor;
+use Mockery as m;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers BlockSequentialSorter::sort
@@ -18,7 +17,7 @@ use app\tests\utils\MemberAccessor;
 class BlockSequentialSorterTest extends TestCase
 {
     private BlockSequentialSorter $sut;
-    
+
     public function setUp(): void
     {
         parent::setUp();
@@ -26,7 +25,7 @@ class BlockSequentialSorterTest extends TestCase
         /** @psalm-suppress InvalidArgument */
         $this->sut = new BlockSequentialSorter(m::mock(RooftopBlocksAPIInterface::class));
     }
-    
+
     public function tearDown(): void
     {
         parent::tearDown();
@@ -35,16 +34,16 @@ class BlockSequentialSorterTest extends TestCase
 
     public function testOrdered(): void
     {
-        $blockListMock = [ "1", "2", "3", "4"];
-        
+        $blockListMock = ["1", "2", "3", "4"];
+
         //Since it's ordered, we expect array count minus first calls to check endpoint
         $expectedApiCalls = count($blockListMock) - 1;
-        
+
         $this->setExpectations(
             MemberAccessor::get($this->sut, 'client'),
             $expectedApiCalls
         );
-        
+
         $result = $this->sut->sort(BlockList::createFromHashesList($blockListMock));
 
         $this->assertEquals($blockListMock, $result->toStringArray());
@@ -52,7 +51,7 @@ class BlockSequentialSorterTest extends TestCase
 
     public function testWorstOrdered(): void
     {
-        $blockListMock = [ "1", "4", "3", "2"];
+        $blockListMock = ["1", "4", "3", "2"];
         $expectedApiCalls = 6;
 
         $this->setExpectations(
@@ -62,12 +61,12 @@ class BlockSequentialSorterTest extends TestCase
 
         $result = $this->sut->sort(BlockList::createFromHashesList($blockListMock));
 
-        $this->assertEquals([ "1", "2", "3", "4"], $result->toStringArray());
+        $this->assertEquals(["1", "2", "3", "4"], $result->toStringArray());
     }
-    
+
     public function testRandomOrdered(): void
     {
-        $blockListMock = [ "1", "7", "6", "3", "4", "2", "5"];
+        $blockListMock = ["1", "7", "6", "3", "4", "2", "5"];
         $expectedApiCalls = 17;
 
         $this->setExpectations(
@@ -77,12 +76,12 @@ class BlockSequentialSorterTest extends TestCase
 
         $result = $this->sut->sort(BlockList::createFromHashesList($blockListMock));
 
-        $this->assertEquals([ "1", "2", "3", "4", "5", "6", "7"], $result->toStringArray());
+        $this->assertEquals(["1", "2", "3", "4", "5", "6", "7"], $result->toStringArray());
     }
-    
+
     public function testEmpty(): void
     {
-        $blockListMock = [] ;
+        $blockListMock = [];
         $expectedApiCalls = 0;
 
         $this->setExpectations(
@@ -97,7 +96,7 @@ class BlockSequentialSorterTest extends TestCase
 
     public function testJustOne(): void
     {
-        $blockListMock = ["1"] ;
+        $blockListMock = ["1"];
         $expectedApiCalls = 0;
 
         $this->setExpectations(
@@ -112,7 +111,7 @@ class BlockSequentialSorterTest extends TestCase
 
     public function testPair(): void
     {
-        $blockListMock = ["1", "2"] ;
+        $blockListMock = ["1", "2"];
         $expectedApiCalls = 1;
 
         $this->setExpectations(
@@ -127,7 +126,7 @@ class BlockSequentialSorterTest extends TestCase
 
     public function testUneven(): void
     {
-        $blockListMock = ["1", "3", "2"] ;
+        $blockListMock = ["1", "3", "2"];
         $expectedApiCalls = 3;
 
         $this->setExpectations(
@@ -139,7 +138,7 @@ class BlockSequentialSorterTest extends TestCase
 
         $this->assertEquals(["1", "2", "3"], $result->toStringArray());
     }
-    
+
     private function setExpectations($apiClientMock, int $expectedApiCalls): void
     {
         $apiClientMock->shouldReceive('isNext')
@@ -147,7 +146,7 @@ class BlockSequentialSorterTest extends TestCase
                 m::type(BlockInterface::class),
                 m::type(BlockInterface::class)
             )->andReturnUsing(function (string $block1, string $block2) {
-                return (int) $block2 == (int) $block1 + 1;
+                return (int)$block2 == (int)$block1 + 1;
             })->times($expectedApiCalls);
     }
 }
